@@ -21,10 +21,15 @@
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <script>
         $(document).ready(function() {
-            $("#summernote").summernote({
-                height: 250,
+            $('#summernote').summernote({
+                height: 120, // Adjust the height as needed
+                toolbar: [
+                    // Customize the toolbar
+                    ['style', ['bold', 'italic', 'underline']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['link']]
+                ]
             });
-            $(".dropdown-toggle").dropdown();
         });
     </script>
 
