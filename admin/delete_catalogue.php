@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
         $image = $catalogue['image'];
 
         // Delete the image file from the directory
-        $target_dir = "../assets/images/";
+        $target_dir = "../../assets/images/";
         if (file_exists($target_dir . $image)) {
             unlink($target_dir . $image);
         }

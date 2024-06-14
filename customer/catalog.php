@@ -6,7 +6,8 @@ include('../includes/header.php');
 $sql = "SELECT * FROM tb_catalogues WHERE availability = 'Y'";
 $result = $conn->query($sql);
 
-function formatRupiah($price) {
+function formatRupiah($price)
+{
     return "Rp. " . number_format($price, 0, ',', '.');
 }
 ?>
@@ -21,13 +22,31 @@ function formatRupiah($price) {
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+                $category_class = '';
+                switch ($row['category']) {
+                    case 'Basic':
+                        $category_class = 'bg-gray-100 text-gray-800';
+                        break;
+                    case 'Silver':
+                        $category_class = 'bg-gray-300 text-gray-900';
+                        break;
+                    case 'Gold':
+                        $category_class = 'bg-yellow-300 text-yellow-900';
+                        break;
+                    case 'Platinum':
+                        $category_class = 'bg-gray-500 text-gray-100';
+                        break;
+                }
+
                 echo "<div class='bg-white rounded-lg shadow-lg overflow-hidden flex flex-col'>";
                 echo "<img src='../assets/images/" . $row['image'] . "' alt='" . $row['package_name'] . "' class='w-full h-48 object-cover'>";
-                echo "<div class='p-4 flex-grow flex flex-col'>";
-                echo "<h4 class='text-xl font-bold mb-2'>" . $row['package_name'] . "</h4>";
-                echo "<p class='text-gray-600 mb-2 flex-grow'>" . $row['description'] . "</p>";
-                echo "<p class='text-gray-800 font-semibold'>Harga: " . formatRupiah($row['price']) . "</p>";
-                echo "<p class='text-gray-600 mb-4'>Kategori: " . $row['category'] . "</p>";
+                echo "<div class='p-4 flex flex-col flex-grow'>";
+                echo "<h4 class='text-xl font-bold mb-2 line-clamp-2 h-14'>" . $row['package_name'] . "</h4>";
+                echo "<div class='flex-grow mb-2 overflow-hidden overflow-y-auto max-h-32'>";
+                echo "<p class='text-gray-600'>" . $row['description'] . "</p>";
+                echo "</div>";
+                echo "<p class='px-2 py-1 rounded text-center text-bold mb-4 " . $category_class . "'>" . $row['category'] . "</p>";
+                echo "<p class='text-gray-800 font-semibold text-2xl mb-4'>" . formatRupiah($row['price']) . "</p>";
                 echo "<div class='mt-auto'>";
                 echo "<a href='order.php?id=" . $row['catalogue_id'] . "' class='inline-block bg-primary text-white px-4 py-2 rounded hover:bg-secondary transition'>Pilih Paket</a>";
                 echo "</div>";
