@@ -26,9 +26,8 @@ ob_start();
     <script>
         $(document).ready(function() {
             $('#summernote').summernote({
-                height: 120, // Adjust the height as needed
+                height: 120,
                 toolbar: [
-                    // Customize the toolbar
                     ['style', ['bold', 'italic', 'underline']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['insert', ['link']]
@@ -59,48 +58,46 @@ ob_start();
 </head>
 
 <body class="bg-accent text-primary font-sans min-h-screen flex flex-col">
-    <header class="bg-primary text-white font-bold">
+    <header class="bg-primary text-white font-bold fixed w-full top-0 z-50">
         <div class="container mx-auto flex justify-between items-center py-4 px-6">
             <div class="flex items-center">
                 <img src="../assets/images/logo-placeholder.png" alt="Logo" class="h-10 w-10">
                 <h1 class="ml-3 text-xl">JeWedding<?php echo isset($_SESSION['role']) && $_SESSION['role'] === 'admin' ? ' - Admin' : ''; ?></h1>
             </div>
-            <nav class="hidden md:flex space-x-8">
+            <nav class="hidden md:flex space-x-4">
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
-                    <a href="/jewedding/admin/dashboard.php" class="relative hover:bg-white hover:text-primary px-3 py-2">Dashboard</a>
-                    <a href="/jewedding/admin/manage_orders.php" class="relative hover:bg-white hover:text-primary px-3 py-2">Kelola Status Pesanan</a>
-                    <a href="/jewedding/admin/report.php" class="relative hover:bg-white hover:text-primary px-3 py-2">Laporan</a>
+                    <a href="/jewedding/admin/dashboard.php" class="relative px-3 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">Dashboard</a>
+                    <a href="/jewedding/admin/manage_orders.php" class="relative px-3 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">Kelola Status Pesanan</a>
+                    <a href="/jewedding/admin/report.php" class="relative px-3 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">Laporan</a>
                 <?php else : ?>
-                    <a href="/jewedding/home.php" class="relative hover:bg-white hover:text-primary px-3 py-2">Beranda</a>
-                    <a href="/jewedding/customer/catalog.php" class="relative hover:bg-white hover:text-primary px-3 py-2">Katalog</a>
-                    <a href="/jewedding/customer/check_status.php" class="relative hover:bg-white hover:text-primary px-3 py-2">Cek Status Pesanan</a>
+                    <a href="/jewedding/home.php" class="relative px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">Beranda</a>
+                    <a href="/jewedding/customer/catalog.php" class="relative px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">Katalog</a>
+                    <a href="/jewedding/customer/check_status.php" class="relative px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">Cek Status Pesanan</a>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['role'])) : ?>
-                    <a href="/jewedding/logout.php" class="relative hover:bg-white hover:text-primary px-3 py-2">Logout</a>
+                    <a href="/jewedding/logout.php" class="relative px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">Logout</a>
                 <?php endif; ?>
             </nav>
             <button class="md:hidden text-white focus:outline-none" onclick="toggleMobileMenu()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                </svg>
+                <i class="mdi mdi-menu mdi-24px"></i>
             </button>
         </div>
         <nav id="mobile-menu" class="hidden md:hidden bg-primary text-white space-y-4 px-6 pb-4">
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
-                <a href="/jewedding/admin/dashboard.php" class="block hover:underline">Dashboard</a>
-                <a href="/jewedding/admin/manage_orders.php" class="block hover:underline">Kelola Status Pesanan</a>
-                <a href="/jewedding/admin/report.php" class="block hover:underline">Laporan</a>
+                <a href="/jewedding/admin/dashboard.php" class="block">Dashboard</a>
+                <a href="/jewedding/admin/manage_orders.php" class="block">Kelola Status Pesanan</a>
+                <a href="/jewedding/admin/report.php" class="block">Laporan</a>
             <?php else : ?>
-                <a href="/jewedding/home.php" class="block hover:underline">Beranda</a>
-                <a href="/jewedding/customer/catalog.php" class="block hover:underline">Katalog</a>
-                <a href="/jewedding/customer/check_status.php" class="block hover:underline">Cek Status Pesanan</a>
+                <a href="/jewedding/home.php" class="block">Beranda</a>
+                <a href="/jewedding/customer/catalog.php" class="block">Katalog</a>
+                <a href="/jewedding/customer/check_status.php" class="block">Cek Status Pesanan</a>
             <?php endif; ?>
             <?php if (isset($_SESSION['role'])) : ?>
-                <a href="/jewedding/logout.php" class="block hover:underline">Logout</a>
+                <a href="/jewedding/logout.php" class="block">Logout</a>
             <?php endif; ?>
         </nav>
     </header>
-    <main class="container mx-auto p-6 flex-grow">
+    <main class="container mx-auto max-w-screen-lg p-6 flex-grow mt-16">
         <script>
             function toggleMobileMenu() {
                 var menu = document.getElementById('mobile-menu');

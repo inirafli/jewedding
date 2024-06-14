@@ -111,16 +111,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </select>
             </div>
             <div>
-                <label for="image" class="block text-sm font-medium text-gray-700">Unggah Gambar Baru (opsional):</label>
+                <label for="image" class="block text-sm font-medium text-gray-700 mb-2">Unggah Gambar Baru (opsional):</label>
                 <div class="flex items-center justify-center w-full">
-                    <label for="image" class="flex flex-col items-center justify-center w-full h-32 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200">
+                    <label for="image" id="image-label" class="flex flex-col items-center justify-center w-full h-64 bg-gray-100 rounded-lg cursor-pointer hover:bg-gray-200 hidden">
                         <i class="mdi mdi-camera-outline text-3xl text-gray-500"></i>
                         <span class="mt-2 text-sm text-gray-500">Click to add an image</span>
                         <input type="file" id="image" name="image" class="hidden" onchange="showImagePreview(event)">
                     </label>
-                </div>
-                <div id="image-preview" class="mt-4 hidden">
-                    <img src="#" alt="Image Preview" class="w-full h-32 object-cover rounded-md">
+                    <div id="image-preview" class="w-full h-64 rounded-lg overflow-hidden cursor-pointer" onclick="document.getElementById('image').click()">
+                        <img src="../assets/images/<?php echo $old_image; ?>" alt="Image Preview" class="w-full h-64 object-cover">
+                    </div>
                 </div>
             </div>
             <div>
@@ -138,6 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             const img = preview.querySelector('img');
             img.src = URL.createObjectURL(file);
             preview.classList.remove('hidden');
+
+            const label = document.getElementById('image-label');
+            label.classList.add('hidden');
         }
     }
 </script>

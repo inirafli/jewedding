@@ -13,31 +13,52 @@ function formatRupiah($price)
 }
 ?>
 
-<div class="container mx-auto py-8">
-    <h2 class="text-xl font-bold mb-12 text-center">Admin Dashboard</h2>
-
+<div class="container mx-auto max-w-screen-lg py-8">
     <div class="flex flex-wrap items-center justify-between mb-4">
         <h3 class="text-xl font-bold mb-4">Daftar Katalog</h3>
         <a href="add_catalogue.php" class="bg-primary text-white px-4 py-2 rounded hover:bg-secondary transition mb-4">Tambah Katalog</a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                echo "<div class='catalogue-card bg-white rounded-lg shadow-lg flex'>";
-                echo "<img src='../assets/images/" . $row['image'] . "' alt='" . $row['package_name'] . "' class='w-48 object-cover rounded-l-md'>";
-                echo "<div class='p-4 flex flex-col justify-between flex-grow'>";
+                $admin_sql = "SELECT name FROM tb_users WHERE user_id = " . $row['user_id'];
+                $admin_result = $conn->query($admin_sql);
+                $admin_name = $admin_result->num_rows > 0 ? $admin_result->fetch_assoc()['name'] : 'Unknown';
+
+                $category_class = '';
+                switch ($row['category']) {
+                    case 'Basic':
+                        $category_class = 'bg-gray-100 text-gray-800';
+                        break;
+                    case 'Silver':
+                        $category_class = 'bg-gray-300 text-gray-900';
+                        break;
+                    case 'Gold':
+                        $category_class = 'bg-yellow-300 text-yellow-900';
+                        break;
+                    case 'Platinum':
+                        $category_class = 'bg-gray-500 text-gray-100';
+                        break;
+                }
+
+                echo "<div class='catalogue-card bg-white rounded-lg shadow-lg'>";
+                echo "<img src='../assets/images/" . $row['image'] . "' alt='" . $row['package_name'] . "' class='w-full h-48 object-cover rounded-t-md'>";
+                echo "<div class='p-4 flex flex-col justify-between'>";
+                echo "<div class='bg-accent text-secondary px-2 py-1 rounded mb-3 text-center'>" . ($row['availability'] == 'Y' ? 'Tersedia' : 'Tidak Tersedia') . "</div>";
                 echo "<div>";
-                echo "<h4 class='text-xl font-bold mb-2'>" . $row['package_name'] . "</h4>";
-                echo "<p class='text-gray-700 mb-2'>" . $row['description'] . "</p>";
-                echo "<p class='text-gray-800 font-semibold mb-2'>Harga: " . formatRupiah($row['price']) . "</p>";
-                echo "<p class='text-gray-700 mb-2'>Kategori: " . $row['category'] . "</p>";
-                echo "<p class='text-gray-700 mb-2'>Ketersediaan: " . ($row['availability'] == 'Y' ? 'Yes' : 'No') . "</p>";
+                echo "<h4 class='text-xl font-bold mb-2 truncate'>" . $row['package_name'] . "</h4>";
+                echo "<div class='flex justify-start space-x-4 items-center mb-2'>";
+                echo "<p class='px-4 py-1 rounded " . $category_class . "'>" . $row['category'] . "</p>";
+                echo "<p class='text-gray-800 text-lg'>" . formatRupiah($row['price']) . "</p>";
                 echo "</div>";
-                echo "<div class='flex space-x-2'>";
-                echo "<a href='update_catalogue.php?id=" . $row['catalogue_id'] . "' class='border border-primary text-primary px-3 py-2 rounded transition hover:bg-primary hover:text-onAccent hover:border-onAccent'><i class='mdi mdi-pencil'></i> Ubah</a>";
-                echo "<a href='delete_catalogue.php?id=" . $row['catalogue_id'] . "' onclick='return confirm(\"Are you sure you want to delete this catalogue?\");' class='border border-primary text-primary px-3 py-2 rounded transition hover:bg-primary hover:text-onAccent hover:border-onAccent'><i class='mdi mdi-delete'></i> Hapus</a>";
+                echo "<div class='text-gray-600 mb-1 flex items-center'><i class='mdi mdi-calendar-outline mr-3 text-xl'></i>" . (!is_null($row['updated_at']) ? $row['updated_at'] : $row['created_at']) . "</div>";
+                echo "<div class='text-gray-600 flex items-center'><i class='mdi mdi-account-outline mr-3 text-xl'></i>" . $admin_name . "</div>";
+                echo "</div>";
+                echo "<div class='flex space-x-2 mt-4'>";
+                echo "<a href='update_catalogue.php?id=" . $row['catalogue_id'] . "' class='border border-primary text-primary px-4 py-1 rounded transition hover:bg-primary hover:text-white flex items-center'><i class='mdi mdi-pencil-outline mr-2 text-lg'></i> Ubah</a>";
+                echo "<a href='delete_catalogue.php?id=" . $row['catalogue_id'] . "' onclick='return confirm(\"Are you sure you want to delete this catalogue?\");' class='border border-primary text-primary px-4 py-1 rounded transition hover:bg-primary hover:text-white flex items-center'><i class='mdi mdi-delete-outline mr-2 text-lg'></i> Hapus</a>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -48,5 +69,7 @@ function formatRupiah($price)
         ?>
     </div>
 </div>
+
+
 
 <?php include('../includes/footer.php'); ?>
