@@ -6,7 +6,6 @@ include('../includes/header.php');
 $sql = "SELECT * FROM tb_catalogues WHERE availability = 'Y'";
 $result = $conn->query($sql);
 
-// Function to format price in Indonesian Rupiah
 function formatRupiah($price) {
     return "Rp. " . number_format($price, 0, ',', '.');
 }
