@@ -1,3 +1,7 @@
+<?php
+ob_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,7 +85,7 @@
                 </svg>
             </button>
         </div>
-        <nav id="mobile-menu" class="hidden md:hidden bg-primary text-white space-y-2 px-6 pb-4">
+        <nav id="mobile-menu" class="hidden md:hidden bg-primary text-white space-y-4 px-6 pb-4">
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
                 <a href="/jewedding/admin/dashboard.php" class="block hover:underline">Dashboard</a>
                 <a href="/jewedding/admin/manage_orders.php" class="block hover:underline">Kelola Status Pesanan</a>

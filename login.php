@@ -1,7 +1,6 @@
 <?php
 session_start();
 include('includes/db.php');
-include('includes/header.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
@@ -24,17 +23,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             exit();
         } else {
-            echo "<p class='text-red-500'>Password salah!</p>";
+            $error_message = "Password salah!";
         }
     } else {
-        echo "<p class='text-red-500'>Username tidak ditemukan!</p>";
+        $error_message = "Username tidak ditemukan!";
     }
 }
+
+include('includes/header.php');
 ?>
 
 <div class="flex justify-center items-center min-h-screen bg-accent">
     <form method="POST" action="login.php" class="bg-white p-8 rounded shadow-lg w-full max-w-sm">
         <h2 class="text-2xl font-bold mb-6 text-center text-primary">Masuk</h2>
+        <?php if (isset($error_message)) : ?>
+            <p class="text-red-500"><?php echo $error_message; ?></p>
+        <?php endif; ?>
         <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
         <input type="text" id="username" name="username" class="mt-1 mb-4 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary" required>
         <label for="password" class="block text-sm font-medium text-gray-700">Kata Sandi</label>
