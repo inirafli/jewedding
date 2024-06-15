@@ -28,7 +28,7 @@ function formatRupiah($price)
 }
 ?>
 
-<div class="container mx-auto py-8">
+<div class="container mx-auto max-w-screen-xl px-6 py-12 lg:px-16 flex-grow mt-16">
     <h2 class="text-xl font-bold text-center mb-12">Kelola Pesanan Masuk</h2>
 
     <div>

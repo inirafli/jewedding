@@ -4,7 +4,7 @@ checkRole('admin');
 include('../includes/header.php');
 ?>
 
-<div class="container mx-auto py-8">
+<div class="container mx-auto max-w-screen-xl px-6 py-12 lg:px-16 flex-grow mt-16">
     <h2 class="text-xl font-bold mb-8 text-center">Tambah Katalog</h2>
     <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
         <form method="POST" action="actions/add_catalogue_actions.php" enctype="multipart/form-data" class="space-y-4">

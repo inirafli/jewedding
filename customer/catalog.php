@@ -12,7 +12,7 @@ function formatRupiah($price)
 }
 ?>
 
-<div class="container mx-auto py-4">
+<div class="container mx-auto max-w-screen-xl px-6 py-12 lg:px-16 flex-grow mt-16">
     <div class="flex justify-center mb-12">
         <div class="bg-onAccent text-primary py-2 px-4 rounded">
             <h2 class="text-xl font-bold text-center">Pilihan Paket</h2>

@@ -42,7 +42,7 @@ if ($result->num_rows > 0) {
 }
 ?>
 
-<div class="container mx-auto py-8">
+<div class="container mx-auto max-w-screen-xl px-6 py-12 lg:px-8 flex-grow mt-16">
     <h2 class="text-xl font-bold text-center mb-12">Laporan Pesanan</h2>
 
     <div class="mb-4 flex flex-col md:flex-row justify-between items-center">

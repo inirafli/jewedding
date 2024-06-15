@@ -20,7 +20,7 @@ function formatRupiah($price)
 }
 ?>
 
-<div class="container mx-auto py-8">
+<div class="container mx-auto max-w-screen-xl px-6 py-12 lg:px-16 flex-grow mt-16">
     <h2 class="text-xl font-bold text-center mb-12">Status Pemesanan</h2>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">

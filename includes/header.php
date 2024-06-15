@@ -1,5 +1,10 @@
 <?php
 ob_start();
+include($_SERVER['DOCUMENT_ROOT'] . '/jewedding/includes/db.php');
+
+$sql = "SELECT * FROM tb_settings LIMIT 1";
+$result = $conn->query($sql);
+$settings = $result->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -61,8 +66,8 @@ ob_start();
     <header class="bg-primary text-white font-bold fixed w-full top-0 z-50">
         <div class="container mx-auto flex justify-between items-center py-4 px-6">
             <div class="flex items-center">
-                <img src="../assets/images/logo-placeholder.png" alt="Logo" class="h-10 w-10">
-                <h1 class="ml-3 text-xl">JeWedding<?php echo isset($_SESSION['role']) && $_SESSION['role'] === 'admin' ? ' - Admin' : ''; ?></h1>
+                <img src="<?php echo $settings['logo']; ?>" alt="Logo" class="absolute h-[64px] w-[64px]">
+                <h1 class="ml-16 text-xl"><?php echo $settings['website_name']; ?><?php echo isset($_SESSION['role']) && $_SESSION['role'] === 'admin' ? ' - Admin' : ''; ?></h1>
             </div>
             <nav class="hidden md:flex space-x-4">
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
@@ -97,7 +102,7 @@ ob_start();
             <?php endif; ?>
         </nav>
     </header>
-    <main class="container mx-auto max-w-screen-xl p-6 lg:px-16 flex-grow mt-16">
+    <main>
         <script>
             function toggleMobileMenu() {
                 var menu = document.getElementById('mobile-menu');

@@ -13,7 +13,7 @@ function formatRupiah($price)
 }
 ?>
 
-<div class="container mx-auto py-8">
+<div class="container mx-auto max-w-screen-xl px-6 py-12 lg:px-16 flex-grow mt-16">
     <div class="flex flex-wrap items-center justify-between mb-4">
         <h3 class="text-xl font-bold mb-4">Daftar Katalog</h3>
         <a href="add_catalogue.php" class="bg-primary text-white px-4 py-2 rounded hover:bg-secondary transition mb-4">Tambah Katalog</a>
