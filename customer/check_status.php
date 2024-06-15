@@ -43,7 +43,7 @@ function formatRupiah($price)
                 echo "<div class='order-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col lg:flex-row'>";
                 echo "<img src='../assets/images/" . $row['image'] . "' alt='" . $row['package_name'] . "' class='w-full h-48 lg:w-48 lg:h-auto object-cover'>";
                 echo "<div class='p-4 flex flex-col flex-grow relative'>";
-                echo "<h4 class='text-xl font-bold mb-1 line-clamp-2'>" . $row['package_name'] . "</h4>";
+                echo "<h4 class='text-xl font-bold mb-1 line-clamp-1'>" . $row['package_name'] . "</h4>";
                 echo "<p class='text-gray-800 text-lg font-semibold mb-2'>" . formatRupiah($row['price']) . "</p>";
                 echo "<div class='flex items-center text-gray-600 mb-1'><i class='mdi mdi-calendar-outline mr-2 text-xl'></i>" . $row['wedding_date'] . "</div>";
                 echo "<div class='flex items-center text-gray-600 mb-12'><i class='mdi mdi-phone-outline mr-2 text-xl'></i>" . $row['phone_number'] . "</div>";

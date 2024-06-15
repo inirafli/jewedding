@@ -13,7 +13,7 @@ function formatRupiah($price)
 }
 ?>
 
-<div class="container mx-auto max-w-screen-lg py-8">
+<div class="container mx-auto py-8">
     <div class="flex flex-wrap items-center justify-between mb-4">
         <h3 class="text-xl font-bold mb-4">Daftar Katalog</h3>
         <a href="add_catalogue.php" class="bg-primary text-white px-4 py-2 rounded hover:bg-secondary transition mb-4">Tambah Katalog</a>
@@ -56,9 +56,9 @@ function formatRupiah($price)
                 echo "<div class='text-gray-600 mb-1 flex items-center'><i class='mdi mdi-calendar-outline mr-3 text-xl'></i>" . (!is_null($row['updated_at']) ? $row['updated_at'] : $row['created_at']) . "</div>";
                 echo "<div class='text-gray-600 flex items-center'><i class='mdi mdi-account-outline mr-3 text-xl'></i>" . $admin_name . "</div>";
                 echo "</div>";
-                echo "<div class='flex space-x-2 mt-4'>";
-                echo "<a href='update_catalogue.php?id=" . $row['catalogue_id'] . "' class='border border-primary text-primary px-4 py-1 rounded transition hover:bg-primary hover:text-white flex items-center'><i class='mdi mdi-pencil-outline mr-2 text-lg'></i> Ubah</a>";
-                echo "<a href='delete_catalogue.php?id=" . $row['catalogue_id'] . "' onclick='return confirm(\"Are you sure you want to delete this catalogue?\");' class='border border-primary text-primary px-4 py-1 rounded transition hover:bg-primary hover:text-white flex items-center'><i class='mdi mdi-delete-outline mr-2 text-lg'></i> Hapus</a>";
+                echo "<div class='flex justify-end space-x-2 mt-4'>";
+                echo "<a href='update_catalogue.php?id=" . $row['catalogue_id'] . "' class='border border-primary text-primary px-4 py-2 rounded transition hover:bg-primary hover:text-white flex items-center'><i class='mdi mdi-pencil-outline mr-2 text-lg'></i> Ubah</a>";
+                echo "<a href='actions/delete_catalogue.php?id=" . $row['catalogue_id'] . "' onclick='return confirm(\"Are you sure you want to delete this catalogue?\");' class='border border-primary text-primary px-4 py-2 rounded transition hover:bg-primary hover:text-white flex items-center'><i class='mdi mdi-delete-outline mr-2 text-lg'></i> Hapus</a>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";

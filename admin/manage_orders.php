@@ -79,8 +79,6 @@ function formatRupiah($price)
 
 <?php include('../includes/footer.php'); ?>
 
-<link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.5.95/css/materialdesignicons.min.css" rel="stylesheet">
-
 <?php
 function renderOrderCard($row)
 {
@@ -102,12 +100,12 @@ function renderOrderCard($row)
     $card = "<div class='order-card bg-white rounded-lg shadow-lg overflow-hidden flex flex-col'>";
     $card .= "<img src='../assets/images/" . $row['image'] . "' alt='" . $row['package_name'] . "' class='w-full h-48 object-cover'>";
     $card .= "<div class='p-4 flex flex-col flex-grow'>";
-    $card .= "<h4 class='text-xl font-bold mb-2 line-clamp-2'>" . $row['package_name'] . "</h4>";
+    $card .= "<h4 class='text-xl font-bold mb-2 line-clamp-1'>" . $row['package_name'] . "</h4>";
     $card .= "<p class='text-gray-800 text-lg font-semibold mb-2'>" . formatRupiah($row['price']) . "</p>";
     $card .= "<div class='flex items-center text-gray-600 mb-2'><i class='mdi mdi-account-outline mr-2 text-xl'></i>" . $row['customer_name'] . "</div>";
     $card .= "<div class='flex items-center text-gray-600 mb-2'><i class='mdi mdi-phone-outline mr-2 text-xl'></i>" . $row['phone_number'] . "</div>";
     $card .= "<div class='flex items-center text-gray-600 mb-2'><i class='mdi mdi-calendar-outline mr-2 text-xl'></i>" . $row['wedding_date'] . "</div>";
-    $card .= "<div class='text-gray-600 mb-2'><i class='mdi mdi-note-outline mr-2 text-xl'></i><span>Notes: <span class='block h-12 overflow-y-auto'>" . $notes . "</span></span></div>";
+    $card .= "<div class='text-gray-600 mb-2'><i class='mdi mdi-note-outline mr-2 text-xl'></i><span>Notes dari Pemesan <span class='block h-12 overflow-y-auto'>" . $notes . "</span></span></div>";
     $card .= "<div class='mt-4 flex flex-wrap justify-end space-x-2'>";
     $card .= "<form method='POST' action='manage_orders.php' class='flex space-x-2 space-y-2 justify-end flex-wrap'>";
     $card .= "<input type='hidden' name='order_id' value='" . $row['order_id'] . "'>";

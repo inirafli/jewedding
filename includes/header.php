@@ -97,7 +97,7 @@ ob_start();
             <?php endif; ?>
         </nav>
     </header>
-    <main class="container mx-auto max-w-screen-lg p-6 flex-grow mt-16">
+    <main class="container mx-auto max-w-screen-xl p-6 lg:px-16 flex-grow mt-16">
         <script>
             function toggleMobileMenu() {
                 var menu = document.getElementById('mobile-menu');

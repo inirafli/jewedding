@@ -13,7 +13,7 @@ if (isset($_POST['catalogue_id'])) {
     // Handle file upload if a new image is provided
     $uploadOk = 1;
     if (!empty($_FILES["image"]["name"])) {
-        $target_dir = "../assets/images/";
+        $target_dir = "../../assets/images/";
         $target_file = $target_dir . basename($_FILES["image"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         $check = getimagesize($_FILES["image"]["tmp_name"]);

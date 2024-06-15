@@ -1,7 +1,6 @@
 <?php
-include('../includes/middleware.php');
-checkRole('admin');
-include('../includes/db.php');
+include('../../includes/middleware.php');
+include('../../includes/db.php');
 
 if (isset($_GET['id'])) {
     $catalogue_id = $_GET['id'];
