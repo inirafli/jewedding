@@ -47,8 +47,8 @@ function formatRupiah($price)
                 echo "</div>";
                 echo "<p class='px-2 py-1 rounded text-center text-bold mb-4 " . $category_class . "'>" . $row['category'] . "</p>";
                 echo "<p class='text-gray-800 font-semibold text-2xl mb-4'>" . formatRupiah($row['price']) . "</p>";
-                echo "<div class='mt-auto'>";
-                echo "<a href='order.php?id=" . $row['catalogue_id'] . "' class='inline-block bg-primary text-white px-4 py-2 rounded hover:bg-secondary transition'>Pilih Paket</a>";
+                echo "<div class='mt-auto mb-2'>";
+                echo "<a href='order.php?id=" . $row['catalogue_id'] . "' class='inline-block bg-primary text-white px-6 py-2 rounded hover:bg-secondary transition'>Pilih Paket</a>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
