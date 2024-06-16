@@ -60,6 +60,24 @@ $settings = $result->fetch_assoc();
             },
         };
     </script>
+    <style>
+        .icon-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid white;
+            background-color: transparent;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .icon-button:hover {
+            background-color: white;
+            color: #1f2937;
+        }
+    </style>
 </head>
 
 <body class="bg-accent text-primary font-sans min-h-screen flex flex-col">

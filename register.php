@@ -8,14 +8,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO tb_users (name, email, username, password, role, created_at, updated_at)
-            VALUES ('$name', '$email', '$username', '$password', 'customer', NOW(), NOW())";
+    $sql_check = "SELECT * FROM tb_users WHERE username='$username'";
+    $result_check = $conn->query($sql_check);
 
-    if ($conn->query($sql) === TRUE) {
-        header('Location: login.php');
-        exit();
+    if ($result_check->num_rows > 0) {
+        $error = "Username sudah digunakan. Silakan pilih username lain.";
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $sql = "INSERT INTO tb_users (name, email, username, password, role, created_at, updated_at)
+                VALUES ('$name', '$email', '$username', '$password', 'customer', NOW(), NOW())";
+
+        if ($conn->query($sql) === TRUE) {
+            header('Location: login.php');
+            exit();
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
 ?>
