@@ -16,7 +16,7 @@ function formatRupiah($price)
 <div class="container mx-auto max-w-screen-xl px-6 py-12 lg:px-16 flex-grow mt-16">
     <div class="flex flex-wrap items-center justify-between mb-4">
         <h3 class="text-xl font-bold mb-4">Daftar Katalog</h3>
-        <a href="add_catalogue.php" class="bg-primary text-white px-4 py-2 rounded hover:bg-secondary transition mb-4">Tambah Katalog</a>
+        <a href="add_catalogue.php" class="bg-primary text-white px-5 py-2 rounded-md hover:bg-secondary transition mb-4">Tambah Katalog</a>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -51,14 +51,14 @@ function formatRupiah($price)
                 echo "<h4 class='text-xl font-bold mb-2 truncate'>" . $row['package_name'] . "</h4>";
                 echo "<div class='flex justify-start space-x-4 items-center mb-2'>";
                 echo "<p class='px-4 py-1 rounded " . $category_class . "'>" . $row['category'] . "</p>";
-                echo "<p class='text-gray-800 text-lg'>" . formatRupiah($row['price']) . "</p>";
+                echo "<p class='font-bold text-lg'>" . formatRupiah($row['price']) . "</p>";
                 echo "</div>";
-                echo "<div class='text-gray-600 mb-1 flex items-center'><i class='mdi mdi-calendar-outline mr-3 text-xl'></i>" . (!is_null($row['updated_at']) ? $row['updated_at'] : $row['created_at']) . "</div>";
+                echo "<div class='text-gray-600 flex items-center'><i class='mdi mdi-update mr-3 text-xl'></i>" . (!is_null($row['updated_at']) ? $row['updated_at'] : $row['created_at']) . "</div>";
                 echo "<div class='text-gray-600 flex items-center'><i class='mdi mdi-account-outline mr-3 text-xl'></i>" . $admin_name . "</div>";
                 echo "</div>";
                 echo "<div class='flex justify-end space-x-2 mt-4'>";
                 echo "<a href='update_catalogue.php?id=" . $row['catalogue_id'] . "' class='border border-primary text-primary px-4 py-2 rounded transition hover:bg-primary hover:text-white flex items-center'><i class='mdi mdi-pencil-outline mr-2 text-lg'></i> Ubah</a>";
-                echo "<a href='actions/delete_catalogue.php?id=" . $row['catalogue_id'] . "' onclick='return confirm(\"Are you sure you want to delete this catalogue?\");' class='border border-primary text-primary px-4 py-2 rounded transition hover:bg-primary hover:text-white flex items-center'><i class='mdi mdi-delete-outline mr-2 text-lg'></i> Hapus</a>";
+                echo "<a href='javascript:void(0);' onclick='confirmDelete(\"" . $row['catalogue_id'] . "\")' class='border border-primary text-primary px-4 py-2 rounded transition hover:bg-primary hover:text-white flex items-center'><i class='mdi mdi-delete-outline mr-2 text-lg'></i> Hapus</a>";
                 echo "</div>";
                 echo "</div>";
                 echo "</div>";
@@ -70,6 +70,30 @@ function formatRupiah($price)
     </div>
 </div>
 
+<script>
+function confirmDelete(catalogueId) {
+    showConfirmationAlert(
+        'Hapus Katalog',
+        'Apakah kamu yakin ingin menghapus Katalog ini? Data yang telah dihapus tidak dapat dikembalikan.',
+        'Ya, Hapus',
+        'Tidak',
+        function() {
+            window.location.href = 'actions/delete_catalogue.php?id=' + catalogueId;
+        }
+    );
+}
 
+function confirmLogout() {
+    showConfirmationAlert(
+        'Hapus Pesanan',
+        'Apakah kamu yakin ingin menghapus Pesanan ini? Data yang telah dihapus tidak dapat dikembalikan.',
+        'Iya',
+        'Tidak',
+        function() {
+            window.location.href = 'actions/delete_order.php?order_id=' + orderId;
+        }
+    );
+}
+</script>
 
 <?php include('../includes/footer.php'); ?>

@@ -1,5 +1,6 @@
 <?php
 include('../../includes/middleware.php');
+include('../../includes/header.php');
 include('../../includes/db.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -20,19 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($check !== false) {
         $uploadOk = 1;
     } else {
-        echo "File is not an image.";
+        echo "<script>showRetryAlert('error', 'Gagal', 'File bukan gambar.', 'Coba Lagi');</script>";
         $uploadOk = 0;
     }
 
     // Check file size
     if ($_FILES["image"]["size"] > 5000000) {
-        echo "Sorry, your file is too large.";
+        echo "<script>showRetryAlert('error', 'Gagal', 'Ukuran Gambar terlalu besar. Maksimal 5 MB.', 'Coba Lagi');</script>";
         $uploadOk = 0;
     }
 
     // Allow certain file formats
-    if ($imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "png") {
-        echo "Sorry, only JPG, JPEG, & PNG files are allowed.";
+    if ($imageFileType != "jpg" && $imageFileType != "jpeg" && $imageFileType != "png" && $imageFileType != "webp") {
+        echo "<script>showRetryAlert('error', 'Gagal', 'Hanya Gambar bertipe JPG, JPEG, WEBP, & PNG yang diizinkan.', 'Coba Lagi');</script>";
         $uploadOk = 0;
     }
 
@@ -48,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     VALUES ('$image', '$package_name', '$description', '$price', '$category', '$availability', '$user_id', NOW(), NOW())";
 
             if ($conn->query($sql) === TRUE) {
-                header('Location: /jewedding/admin/dashboard.php');
-                exit();
+                echo "<script>
+                showAlert('success', 'Katalog Ditambahkan', 'Data Katalog baru berhasil ditambahkan.', '/jewedding/admin/dashboard.php', 'Cek Katalog');</script>";
             } else {
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }

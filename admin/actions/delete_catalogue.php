@@ -1,5 +1,6 @@
 <?php
 include('../../includes/middleware.php');
+include('../../includes/header.php');
 include('../../includes/db.php');
 
 if (isset($_GET['id'])) {
@@ -21,8 +22,9 @@ if (isset($_GET['id'])) {
         // Delete the catalogue from the database
         $sql = "DELETE FROM tb_catalogues WHERE catalogue_id='$catalogue_id'";
         if ($conn->query($sql) === TRUE) {
-            header('Location: /jewedding/admin/dashboard.php');
-            exit();
+            echo "<script>
+                showAlert('success', 'Berhasil', 'Pesanan telah berhasil dihapus dari Database.', '/jewedding/admin/dashboard.php', 'Cek Katalog');
+              </script>";
         } else {
             echo "Error deleting record: " . $conn->error;
         }

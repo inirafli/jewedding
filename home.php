@@ -17,7 +17,7 @@ $settings = $result->fetch_assoc();
     </div>
 </div>
 
-<div class="container mx-auto py-8 px-4 lg:px-12">
+<div class="container mx-auto pt-8 pb-4 px-4 lg:px-12">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
         <div class="bg-white p-6 rounded-lg shadow-lg text-center">
             <i class="mdi mdi-star-circle-outline text-primary text-5xl"></i>

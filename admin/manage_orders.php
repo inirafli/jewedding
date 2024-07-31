@@ -22,6 +22,18 @@ $sql = "SELECT o.*, u.name as customer_name, c.package_name, c.price, c.image, o
         JOIN tb_catalogues c ON o.catalogue_id = c.catalogue_id";
 $result = $conn->query($sql);
 
+$status_counts = [
+    'requested' => 0,
+    'approved' => 0,
+    'rejected' => 0
+];
+
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $status_counts[$row['status']]++;
+    }
+}
+
 function formatRupiah($price)
 {
     return "Rp. " . number_format($price, 0, ',', '.');
@@ -29,13 +41,29 @@ function formatRupiah($price)
 ?>
 
 <div class="container mx-auto max-w-screen-xl px-6 py-12 lg:px-16 flex-grow mt-16">
-    <h2 class="text-xl font-bold text-center mb-12">Kelola Pesanan Masuk</h2>
+    <h2 class="text-xl font-bold text-center mb-12">Kelola Pesanan</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-start">
+            <h3 class="text-lg font-semibold mb-1">Menunggu Konfirmasi</h3>
+            <span class="text-4xl font-bold"><?php echo $status_counts['requested']; ?></span>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-start">
+            <h3 class="text-lg font-semibold mb-1">Disetujui</h3>
+            <span class="text-4xl font-bold"><?php echo $status_counts['approved']; ?></span>
+        </div>
+        <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-">
+            <h3 class="text-lg font-semibold mb-1">Ditolak</h3>
+            <span class="text-4xl font-bold"><?php echo $status_counts['rejected']; ?></span>
+        </div>
+    </div>
 
     <div>
         <h3 class="text-lg font-semibold mb-4">Pesanan Masuk</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php
             if ($result->num_rows > 0) {
+                mysqli_data_seek($result, 0); // Reset the result pointer to the beginning
                 while ($row = $result->fetch_assoc()) {
                     if ($row['status'] == 'requested') {
                         echo renderOrderCard($row);
@@ -77,6 +105,20 @@ function formatRupiah($price)
     </div>
 </div>
 
+<script>
+function confirmDelete(orderId) {
+    showConfirmationAlert(
+        'Hapus Pesanan',
+        'Apakah kamu yakin ingin menghapus Pesanan ini? Data yang telah dihapus tidak dapat dikembalikan.',
+        'Iya',
+        'Tidak',
+        function() {
+            window.location.href = 'actions/delete_order.php?order_id=' + orderId;
+        }
+    );
+}
+</script>
+
 <?php include('../includes/footer.php'); ?>
 
 <?php
@@ -101,10 +143,10 @@ function renderOrderCard($row)
     $card .= "<img src='../assets/images/" . $row['image'] . "' alt='" . $row['package_name'] . "' class='w-full h-48 object-cover'>";
     $card .= "<div class='p-4 flex flex-col flex-grow'>";
     $card .= "<h4 class='text-xl font-bold mb-2 line-clamp-1'>" . $row['package_name'] . "</h4>";
-    $card .= "<p class='text-gray-800 text-lg font-semibold mb-2'>" . formatRupiah($row['price']) . "</p>";
-    $card .= "<div class='flex items-center text-gray-600 mb-2'><i class='mdi mdi-account-outline mr-2 text-xl'></i>" . $row['customer_name'] . "</div>";
-    $card .= "<div class='flex items-center text-gray-600 mb-2'><i class='mdi mdi-phone-outline mr-2 text-xl'></i>" . $row['phone_number'] . "</div>";
-    $card .= "<div class='flex items-center text-gray-600 mb-2'><i class='mdi mdi-calendar-outline mr-2 text-xl'></i>" . $row['wedding_date'] . "</div>";
+    $card .= "<p class='text-gray-800 text-lg font-bold mb-1'>" . formatRupiah($row['price']) . "</p>";
+    $card .= "<div class='flex items-center text-gray-600 mb-1'><i class='mdi mdi-account-outline mr-2 text-xl'></i>" . $row['customer_name'] . "</div>";
+    $card .= "<div class='flex items-center text-gray-600 mb-1'><i class='mdi mdi-phone-outline mr-2 text-xl'></i>" . $row['phone_number'] . "</div>";
+    $card .= "<div class='flex items-center text-gray-600 mb-1'><i class='mdi mdi-calendar-outline mr-2 text-xl'></i>" . $row['wedding_date'] . "</div>";
     $card .= "<div class='text-gray-600 mb-2'><i class='mdi mdi-note-outline mr-2 text-xl'></i><span>Notes dari Pemesan <span class='block h-12 overflow-y-auto'>" . $notes . "</span></span></div>";
     $card .= "<div class='mt-4 flex flex-wrap justify-end space-x-2'>";
     $card .= "<form method='POST' action='manage_orders.php' class='flex space-x-2 space-y-2 justify-end flex-wrap'>";
@@ -117,7 +159,7 @@ function renderOrderCard($row)
     } elseif ($row['status'] == 'rejected') {
         $card .= "<button type='submit' name='status' value='approved' class='border border-primary text-primary px-3 py-2 rounded transition hover:bg-primary hover:text-white flex items-center'><i class='mdi mdi-check-outline mr-2'></i>Setujui</button>";
     }
-    $card .= "<a href='actions/delete_order.php?order_id=" . $row['order_id'] . "' class='border border-gray-500 text-gray-500 px-3 py-2 rounded transition hover:bg-gray-500 hover:text-white flex items-center'><i class='mdi mdi-delete-outline mr-2'></i>Hapus</a>";
+    $card .= "<a href='javascript:void(0);' onclick='confirmDelete(\"" . $row['order_id'] . "\")' class='border border-gray-500 text-gray-500 px-3 py-2 rounded transition hover:bg-gray-500 hover:text-white flex items-center'><i class='mdi mdi-delete-outline mr-2'></i>Hapus</a>";
     $card .= "</form>";
     $card .= "</div>";
     $card .= "</div>";

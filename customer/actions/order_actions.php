@@ -1,5 +1,6 @@
 <?php
 include('../../includes/middleware.php');
+include('../../includes/header.php');
 include('../../includes/db.php');
 
 if (isset($_GET['id'])) {
@@ -31,14 +32,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $user['name'];
     $email = $user['email'];
 
-    $sql = "INSERT INTO tb_orders (catalogue_id, phone_number, wedding_date, status, notes, user_id, created_at, updated_at) 
-            VALUES ('$catalogue_id', '$phone_number', '$wedding_date', 'requested', '$notes', '$user_id', NOW(), NOW())";
+    $sql = "INSERT INTO tb_orders (catalogue_id, phone_number, wedding_date, status, notes, user_id) 
+            VALUES ('$catalogue_id', '$phone_number', '$wedding_date', 'requested', '$notes', '$user_id')";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Order placed successfully.";
-        header('Location: ../../customer/check_status.php');
+        echo "<script>
+                showAlert('success', 'Pesanan Berhasil', 'Pesanan telah berhasil ditempatkan.', '../../customer/check_status.php', 'Cek Status');
+              </script>";
         exit();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        $error_message = "Error: " . $sql . "<br>" . $conn->error;
+        echo "<script>showAlert('error', 'Gagal Membuat Pesanan', 'Terjadi kesalahan: $error_message', null, 'Coba Lagi');</script>";
     }
 }

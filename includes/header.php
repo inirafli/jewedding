@@ -13,7 +13,7 @@ $settings = $result->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JeWedding<?php echo isset($_SESSION['role']) && $_SESSION['role'] === 'admin' ? ' - Admin' : ''; ?></title>
+    <title>JeWedding<?php echo isset($_SESSION['role']) && $_SESSION['role'] === 'admin' ? ' Admin' : ''; ?></title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,6 +41,11 @@ $settings = $result->fetch_assoc();
         });
     </script>
 
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/jewedding/includes/alert.js"></script>
+
+
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -61,6 +66,14 @@ $settings = $result->fetch_assoc();
         };
     </script>
     <style>
+        h1, h2, h3, h4, h5, h6, a, label, button {
+            letter-spacing: -0.05em;
+        }
+        
+        p {
+            letter-spacing: 0em;
+        }
+
         .icon-button {
             display: inline-flex;
             align-items: center;
@@ -85,7 +98,7 @@ $settings = $result->fetch_assoc();
         <div class="container mx-auto flex justify-between items-center py-4 px-6">
             <div class="flex items-center">
                 <img src="<?php echo $settings['logo']; ?>" alt="Logo" class="absolute h-[64px] w-[64px]">
-                <h1 class="ml-16 text-xl"><?php echo $settings['website_name']; ?><?php echo isset($_SESSION['role']) && $_SESSION['role'] === 'admin' ? ' - Admin' : ''; ?></h1>
+                <h1 class="ml-16 text-xl"><?php echo $settings['website_name']; ?><?php echo isset($_SESSION['role']) && $_SESSION['role'] === 'admin' ? ' Admin' : ''; ?></h1>
             </div>
             <nav class="hidden md:flex space-x-4">
                 <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') : ?>
@@ -98,7 +111,7 @@ $settings = $result->fetch_assoc();
                     <a href="/jewedding/customer/check_status.php" class="relative px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">Cek Status Pesanan</a>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['role'])) : ?>
-                    <a href="/jewedding/logout.php" class="relative px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">Logout</a>
+                    <a href="javascript:void(0);" onclick="confirmLogout()" class="relative px-4 py-2 rounded-lg hover:bg-white hover:text-primary transition-all">Logout</a
                 <?php endif; ?>
             </nav>
             <button class="md:hidden text-white focus:outline-none" onclick="toggleMobileMenu()">
@@ -116,7 +129,7 @@ $settings = $result->fetch_assoc();
                 <a href="/jewedding/customer/check_status.php" class="block">Cek Status Pesanan</a>
             <?php endif; ?>
             <?php if (isset($_SESSION['role'])) : ?>
-                <a href="/jewedding/logout.php" class="block">Logout</a>
+                <a href="javascript:void(0);" onclick="confirmLogout()" class="block">Logout</a>
             <?php endif; ?>
         </nav>
     </header>
